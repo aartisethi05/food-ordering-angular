@@ -1,13 +1,11 @@
-import { analyzeAndValidateNgModules } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
-import { ɵNAMESPACE_URIS } from '@angular/platform-browser';
 
 @Component({
-  selector: 'app-item-card',
-  templateUrl: './item-card.component.html',
-  styleUrls: ['./item-card.component.css']
+  selector: 'app-item-list',
+  templateUrl: './item-list.component.html',
+  styleUrls: ['./item-list.component.css']
 })
-export class ItemCardComponent implements OnInit {
+export class ItemListComponent implements OnInit {
 
   constructor() { }
 
