@@ -1,13 +1,17 @@
 .example-card {
-    width: 300px;
-    height: 100px;
+    width: 250px;
+    height: 350px;
     float:left;
     margin:4px;
     
       }
       
       .example-header-image {
-        background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+        background-image: url('../../../../../assets/images/burger.jpeg');
         background-size: cover;
       }
-      
+      img{
+
+          height: 200px;
+          width: 250px;
+      }

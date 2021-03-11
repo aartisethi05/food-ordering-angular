@@ -1,8 +1,24 @@
-<mat-list>
-    <mat-list-item>Item 1</mat-list-item>
-    <mat-divider></mat-divider>
-    <mat-list-item>Item 2</mat-list-item>
-    <mat-divider></mat-divider>
-    <mat-list-item>Item 3</mat-list-item>
-  </mat-list>
+<table class="table">
+    <th>Item</th>
+    <th>Price</th>
+    <th>Quantity</th>
+<tbody>
+<tr *ngFor="let i of items">   
+    <td>{{i.name}}</td>
+    <td>{{i.price}}</td>
+    <td>{{i.quantity}}</td>
+</tr>
+</tbody>
+</table>
+
+ <button mat-raised-button color="primary" (click)="placeOrder()">Place Order</button>
+
+<div *ngIf="pay">
+    <button mat-raised-button color="warn" (click)="payment()">Pay {{total}}</button>
+</div>
+<div *ngIf="submitted">
+    <div class="alert alert-success" role="alert">
+        Order is placed!
+      </div>
+</div>
   

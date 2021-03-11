@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { LocalStorageServiceService } from 'src/app/shared/services/local-storage-service.service';
 
 @Component({
   selector: 'app-item-list',
@@ -7,22 +8,44 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ItemListComponent implements OnInit {
 
-  constructor() { }
+  constructor(private DataSharing: LocalStorageServiceService) {  
+   
+  }  
 
   ngOnInit(): void {
+    this.DataSharing.SharingData.next(null); 
   }
-  public addedItems : any = [];
+  //public addedItems : any = [];
+  public storedItems : any;
   public items = [{
     name:"Burger",
-    price:"60"
+    price:"60",
+    photo:"../../assets/images/burger.jpeg"
   },
 {
   name:"Cold Coffee",
-  price:"99"
+  price:"99",
+  photo:"../../assets/images/coffee.jpeg"
 },
 {
-  name:"French Fries",
-  price:"110"
+  name:"Coke",
+  price:"80",
+  photo:"../../assets/images/coke.jpg"
+},
+{
+  name:"Pasta",
+  price:"120",
+  photo:"../../assets/images/pasta.jpeg"
+},
+{
+name:"Pizza",
+price:"250",
+photo:"../../assets/images/pizza.jpg"
+},
+{
+name:"French Fries",
+price:"110",
+photo:"../../assets/images/fries.jpeg"
 }
 ];
 addToCart(name:any,price:any){
@@ -30,11 +53,13 @@ addToCart(name:any,price:any){
   let obj = {
     'name':name,'price':price,'quantity':quantity
   }; 
-  let storedItems:any = localStorage.getItem('items');
-  storedItems = JSON.parse(storedItems);
+  
   let exists=false;
-  if(storedItems!=null){
-  storedItems.forEach(element => {
+  this.DataSharing.SharingData.subscribe((res: any) => {  
+    this.storedItems = res;
+  })  
+  if(this.storedItems!=null){
+  this.storedItems.forEach(element => {
     if(element.name==name){
       exists=true;
       element.quantity=element.quantity+1;
@@ -42,10 +67,15 @@ addToCart(name:any,price:any){
   });
 }
   if(exists){
-    localStorage.setItem("items",JSON.stringify(storedItems));
-  }else
-  this.addedItems.push(obj);
-  localStorage.setItem("items",JSON.stringify(this.addedItems));
- }
+    this.DataSharing.SharingData.next(this.storedItems); 
+  }else{
+    if(this.storedItems==null){
+      this.storedItems=[];
+    }
 
+    this.storedItems.push(obj);
+    this.DataSharing.SharingData.next(this.storedItems); 
+ }
+  
+}
 }
